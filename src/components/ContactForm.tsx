@@ -12,6 +12,10 @@ const ContactForm = () => {
     e.preventDefault();
     // Handle form submission
     console.log(formData);
+    // Здесь будет отправка данных на сервер
+    alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+    // Сброс формы после отправки
+    setFormData({ name: '', phone: '', email: '', message: '' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -22,14 +26,25 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contacts" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
+    <section id="contact-form" className="py-20 relative">
+      {/* Фоновое изображение поезда с контейнерами */}
+      <div 
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: 'linear-gradient(to right, rgba(8, 60, 106, 0.85), rgba(5, 43, 77, 0.95)), url("https://images.unsplash.com/photo-1527679124583-9203a88236ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80")',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-3xl mx-auto text-white">
           <h2 className="text-3xl font-bold text-center mb-12">Связаться с нами</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Ваше имя
                 </label>
                 <input
@@ -38,12 +53,12 @@ const ContactForm = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="phone" className="block text-sm font-medium mb-2">
                   Телефон
                 </label>
                 <input
@@ -52,13 +67,13 @@ const ContactForm = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                   required
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
                 Email
               </label>
               <input
@@ -67,12 +82,12 @@ const ContactForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                 required
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="message" className="block text-sm font-medium mb-2">
                 Сообщение
               </label>
               <textarea
@@ -81,14 +96,14 @@ const ContactForm = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                 required
               ></textarea>
             </div>
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-blue-800 text-white px-8 py-3 rounded-md hover:bg-blue-900 transition"
+                className="bg-white text-blue-800 px-8 py-3 rounded-md hover:bg-blue-50 transition"
               >
                 Отправить сообщение
               </button>

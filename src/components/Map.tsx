@@ -2,21 +2,16 @@ import React from 'react';
 
 const Map = () => {
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">География перевозок</h2>
-        <div className="aspect-w-16 aspect-h-9">
-          <iframe
-            src="https://yandex.ru/map-widget/v1/?um=constructor%3Aexample&amp;source=constructor"
-            width="100%"
-            height="400"
-            frameBorder="0"
-            className="rounded-lg shadow-lg"
-            title="География перевозок"
-          ></iframe>
-        </div>
-      </div>
-    </section>
+    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3A36c79ea0acfd14f6cd5c3c484fdd42bfbea1d331bcf75f62ee6b5e7b9432f4ff&amp;source=constructor"
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        frameBorder="0"
+        className="rounded-lg shadow-lg"
+        title="География перевозок Алекс Транс"
+        allowFullScreen
+      ></iframe>
+    </div>
   );
 };
 
