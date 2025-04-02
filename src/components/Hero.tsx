@@ -9,7 +9,7 @@ const Hero = () => {
       <div 
         className="absolute inset-0 w-full h-full"
         style={{
-          backgroundImage: 'linear-gradient(to right, rgba(5, 43, 77, 0.95), rgba(8, 60, 106, 0.8)), url("https://images.unsplash.com/photo-1587293852726-70cdb56c2866?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80")',
+          backgroundImage: 'linear-gradient(to right, rgba(5, 43, 77, 0.75), rgba(8, 60, 106, 0.6)), url("https://images.unsplash.com/photo-1587293852726-70cdb56c2866?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80")',
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',

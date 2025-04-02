@@ -10,6 +10,12 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center">
+            <img 
+              src="/images/logo.svg" 
+              alt="Алекс Транс - Логотип" 
+              className="h-10 w-auto mr-3"
+              style={{ fill: '#0B4F8C' }}
+            />
             <span className="text-2xl font-bold text-blue-800">АЛЕКС ТРАНС</span>
           </Link>
 
