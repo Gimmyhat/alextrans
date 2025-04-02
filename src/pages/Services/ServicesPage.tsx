@@ -151,7 +151,7 @@ const ServicesPage: React.FC = () => {
               <img 
                 src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
                 alt="Автомобильные перевозки" 
-                className="rounded-lg shadow-lg w-full h-80 object-cover"
+                className="rounded-lg shadow-lg w-full h-[300px] object-cover"
               />
             </div>
           </div>
@@ -164,7 +164,7 @@ const ServicesPage: React.FC = () => {
               <img 
                 src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
                 alt="Сборные грузы" 
-                className="rounded-lg shadow-lg w-full h-80 object-cover"
+                className="rounded-lg shadow-lg w-full h-[300px] object-cover"
               />
             </div>
             
@@ -273,7 +273,7 @@ const ServicesPage: React.FC = () => {
               <img 
                 src="https://images.unsplash.com/photo-1574865898536-f4ef6e6d6fd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
                 alt="Железнодорожные перевозки" 
-                className="rounded-lg shadow-lg w-full h-80 object-cover"
+                className="rounded-lg shadow-lg w-full h-[300px] object-cover"
               />
             </div>
           </div>
@@ -286,7 +286,7 @@ const ServicesPage: React.FC = () => {
               <img 
                 src="https://images.unsplash.com/photo-1504728078670-d0a59873c8c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
                 alt="Мультимодальные перевозки" 
-                className="rounded-lg shadow-lg w-full h-80 object-cover"
+                className="rounded-lg shadow-lg w-full h-[300px] object-cover"
               />
             </div>
             
@@ -397,7 +397,7 @@ const ServicesPage: React.FC = () => {
               <img 
                 src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
                 alt="Страхование и документация" 
-                className="rounded-lg shadow-lg w-full h-80 object-cover"
+                className="rounded-lg shadow-lg w-full h-[300px] object-cover"
               />
             </div>
           </div>
