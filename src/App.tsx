@@ -7,6 +7,7 @@ import AboutPage from './pages/About/AboutPage';
 import ContactsPage from './pages/Contacts/ContactsPage';
 import TrackingPage from './pages/Tracking/TrackingPage';
 import CalculatorPage from './pages/Calculator/CalculatorPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicy/PrivacyPolicyPage';
 import { Menu, Phone, Truck, Package, Train, Calculator, Clock, MapPin, ChevronRight } from 'lucide-react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -26,6 +27,7 @@ function App() {
         <Route path="contacts" element={<ContactsPage />} />
         <Route path="tracking" element={<TrackingPage />} />
         <Route path="calculator" element={<CalculatorPage />} />
+        <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
       </Route>
     </Routes>
   );
