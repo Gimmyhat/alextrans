@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logoSrc from '../assets/logo.svg';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +11,11 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center">
+            <img 
+              src={logoSrc}
+              alt="Алекс Транс - Логотип" 
+              className="h-10 w-auto mr-3"
+            />
             <span className="text-2xl font-bold text-blue-800">АЛЕКС ТРАНС</span>
           </Link>
 
@@ -27,9 +33,12 @@ const Header = () => {
               <Phone className="w-5 h-5 mr-2" />
               <span>+7 (3952) 00-00-00</span>
             </a>
-            <button className="bg-blue-800 text-white px-6 py-2 rounded-md hover:bg-blue-900 transition">
+            <Link 
+              to="/calculator"
+              className="bg-blue-800 text-white px-6 py-2 rounded-md hover:bg-blue-900 transition"
+            >
               Рассчитать стоимость
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -53,9 +62,13 @@ const Header = () => {
               <a href="tel:+73952000000" className="block px-3 py-2 text-blue-800">
                 +7 (3952) 00-00-00
               </a>
-              <button className="w-full bg-blue-800 text-white px-6 py-2 rounded-md mt-4">
+              <Link 
+                to="/calculator"
+                className="w-full bg-blue-800 text-white px-6 py-2 rounded-md mt-4 block text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Рассчитать стоимость
-              </button>
+              </Link>
             </div>
           </div>
         )}
