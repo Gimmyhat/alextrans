@@ -273,7 +273,7 @@ const ServicesPage: React.FC = () => {
             
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1530325553241-4f6e7690cf36?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
+                src="/images/cont_by_train.jpg" 
                 alt="Железнодорожные перевозки" 
                 className="rounded-lg shadow-lg w-full object-cover"
                 style={{ height: "400px" }}
