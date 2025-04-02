@@ -1,6 +1,7 @@
 import React from 'react';
 import { Truck, Package, Train, Ship, FileCheck, ChevronDown, Clock, Shield, BookCheck } from 'lucide-react';
 import ContactForm from '../../components/ContactForm';
+import { Link } from 'react-router-dom';
 
 const ServicesPage: React.FC = () => {
   const scrollToSection = (id: string) => {
@@ -214,9 +215,9 @@ const ServicesPage: React.FC = () => {
                 Воспользуйтесь нашим онлайн-калькулятором или свяжитесь с менеджером.
               </p>
               
-              <a href="/calculator" className="inline-block bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
+              <Link to="/calculator" className="inline-block bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">
                 Рассчитать стоимость
-              </a>
+              </Link>
             </div>
           </div>
         </section>
