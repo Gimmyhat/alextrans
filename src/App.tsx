@@ -8,14 +8,6 @@ import ContactsPage from './pages/Contacts/ContactsPage';
 import TrackingPage from './pages/Tracking/TrackingPage';
 import CalculatorPage from './pages/Calculator/CalculatorPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicy/PrivacyPolicyPage';
-import { Menu, Phone, Truck, Package, Train, Calculator, Clock, MapPin, ChevronRight } from 'lucide-react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Advantages from './components/Advantages';
-import Map from './components/Map';
-import ContactForm from './components/ContactForm';
-import Footer from './components/Footer';
 
 function App() {
   return (

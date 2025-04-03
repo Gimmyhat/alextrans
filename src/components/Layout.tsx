@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import FloatingCallButton from './FloatingCallButton';
 
 const Layout: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Layout: React.FC = () => {
         <Outlet /> 
       </main>
       <Footer />
+      <FloatingCallButton />
     </div>
   );
 };

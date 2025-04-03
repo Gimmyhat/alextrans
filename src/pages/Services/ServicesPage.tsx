@@ -24,48 +24,18 @@ const ServicesPage: React.FC = () => {
         </div>
       </div>
       
-      {/* Навигация по странице */}
-      <div className="sticky top-20 bg-white shadow-md z-10">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center py-4 gap-4">
-            <button 
-              onClick={() => scrollToSection('auto')}
-              className="px-4 py-2 text-blue-800 hover:bg-blue-50 rounded-md transition flex items-center"
-            >
-              <Truck className="w-4 h-4 mr-2" />
-              Автоперевозки
-            </button>
-            <button 
-              onClick={() => scrollToSection('collection')}
-              className="px-4 py-2 text-blue-800 hover:bg-blue-50 rounded-md transition flex items-center"
-            >
-              <Package className="w-4 h-4 mr-2" />
-              Сборные грузы
-            </button>
-            <button 
-              onClick={() => scrollToSection('railway')}
-              className="px-4 py-2 text-blue-800 hover:bg-blue-50 rounded-md transition flex items-center"
-            >
-              <Train className="w-4 h-4 mr-2" />
-              ЖД перевозки
-            </button>
-            <button 
-              onClick={() => scrollToSection('multimodal')}
-              className="px-4 py-2 text-blue-800 hover:bg-blue-50 rounded-md transition flex items-center"
-            >
-              <Ship className="w-4 h-4 mr-2" />
-              Мультимодальные
-            </button>
-            <button 
-              onClick={() => scrollToSection('insurance')}
-              className="px-4 py-2 text-blue-800 hover:bg-blue-50 rounded-md transition flex items-center"
-            >
-              <FileCheck className="w-4 h-4 mr-2" />
-              Страхование
-            </button>
-          </div>
+      {/* Быстрые ссылки */}
+      <nav className="sticky top-20 bg-white py-3 border-b z-40 mb-12 shadow-sm">
+        <div className="container mx-auto px-4 flex justify-center space-x-4 overflow-x-auto">
+          {/* Используем якорные ссылки для навигации */} 
+          <a href="#auto" className="whitespace-nowrap text-gray-600 hover:text-blue-800 py-2 px-3 rounded-md">Автомобильные</a>
+          <a href="#railway" className="whitespace-nowrap text-gray-600 hover:text-blue-800 py-2 px-3 rounded-md">Железнодорожные</a>
+          <a href="#collection" className="whitespace-nowrap text-gray-600 hover:text-blue-800 py-2 px-3 rounded-md">Сборные грузы</a>
+          <a href="#multimodal" className="whitespace-nowrap text-gray-600 hover:text-blue-800 py-2 px-3 rounded-md">Мультимодальные</a>
+          <a href="#insurance" className="whitespace-nowrap text-gray-600 hover:text-blue-800 py-2 px-3 rounded-md">Доп. услуги</a>
+          <a href="#contact-form" className="whitespace-nowrap text-gray-600 hover:text-blue-800 py-2 px-3 rounded-md">Связаться</a>
         </div>
-      </div>
+      </nav>
       
       {/* Содержимое страницы услуг */}
       <div className="container mx-auto px-4 py-16">
