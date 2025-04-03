@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logoSrc from '../assets/logo.svg';
+import logoSrc from '../assets/logo_alex_trans.svg';
+import { COMPANY_PHONE_NUMBER, COMPANY_PHONE_FORMATTED } from '../config/contactInfo';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,25 +14,54 @@ const Header = () => {
           <Link to="/" className="flex items-center">
             <img 
               src={logoSrc}
-              alt="Алекс Транс - Логотип" 
-              className="h-10 w-auto mr-3"
+              alt="Алекс Транс - Логотип"
+              className="h-20 w-auto mr-3"
             />
-            <span className="text-2xl font-bold text-blue-800">АЛЕКС ТРАНС</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link to="/services" className="text-gray-600 hover:text-blue-800">Услуги</Link>
-            <Link to="/about" className="text-gray-600 hover:text-blue-800">О компании</Link>
-            <Link to="/contacts" className="text-gray-600 hover:text-blue-800">Контакты</Link>
-            <Link to="/tracking" className="text-gray-600 hover:text-blue-800">Отследить груз</Link>
-            <Link to="/calculator" className="text-gray-600 hover:text-blue-800">Калькулятор</Link>
+            <Link 
+              to="/services" 
+              className="text-gray-600 hover:text-blue-800 relative group py-2"
+            >
+              <span>Услуги</span>
+              <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-blue-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+            </Link>
+            <Link 
+              to="/about" 
+              className="text-gray-600 hover:text-blue-800 relative group py-2"
+            >
+              <span>О компании</span>
+              <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-blue-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+            </Link>
+            <Link 
+              to="/contacts" 
+              className="text-gray-600 hover:text-blue-800 relative group py-2"
+            >
+              <span>Контакты</span>
+              <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-blue-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+            </Link>
+            <Link 
+              to="/tracking" 
+              className="text-gray-600 hover:text-blue-800 relative group py-2"
+            >
+              <span>Отследить груз</span>
+              <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-blue-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+            </Link>
+            <Link 
+              to="/calculator" 
+              className="text-gray-600 hover:text-blue-800 relative group py-2"
+            >
+              <span>Калькулятор</span>
+              <span className="absolute bottom-0 left-0 block h-0.5 w-full bg-blue-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+            </Link>
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <a href="tel:+73952000000" className="flex items-center text-blue-800">
+            <a href={`tel:${COMPANY_PHONE_NUMBER}`} className="flex items-center text-blue-800">
               <Phone className="w-5 h-5 mr-2" />
-              <span>+7 (3952) 00-00-00</span>
+              <span>{COMPANY_PHONE_FORMATTED}</span>
             </a>
             <Link 
               to="/calculator"
@@ -59,8 +89,8 @@ const Header = () => {
               <Link to="/contacts" className="block px-3 py-2 text-gray-600" onClick={() => setIsMenuOpen(false)}>Контакты</Link>
               <Link to="/tracking" className="block px-3 py-2 text-gray-600" onClick={() => setIsMenuOpen(false)}>Отследить груз</Link>
               <Link to="/calculator" className="block px-3 py-2 text-gray-600" onClick={() => setIsMenuOpen(false)}>Калькулятор</Link>
-              <a href="tel:+73952000000" className="block px-3 py-2 text-blue-800">
-                +7 (3952) 00-00-00
+              <a href={`tel:${COMPANY_PHONE_NUMBER}`} className="block px-3 py-2 text-blue-800">
+                {COMPANY_PHONE_FORMATTED}
               </a>
               <Link 
                 to="/calculator"

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Phone } from 'lucide-react';
+import { COMPANY_PHONE_FORMATTED } from '../config/contactInfo'; // Импортируем для возможного использования
 
 interface CallbackModalProps {
   isOpen: boolean;

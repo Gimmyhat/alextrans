@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Phone } from 'lucide-react';
 import CallbackModal from './CallbackModal'; // Импортируем модальное окно
+import { COMPANY_PHONE_NUMBER } from '../config/contactInfo'; // Импортируем номер телефона
 
 const FloatingCallButton: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

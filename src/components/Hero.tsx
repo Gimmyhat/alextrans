@@ -25,7 +25,7 @@ const Hero = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Надежные грузоперевозки по всей России
+                Надежные грузоперевозки по России и миру
               </h1>
               <p className="text-xl mb-8 text-gray-200">
                 Профессиональные логистические решения для вашего бизнеса в Иркутске и области

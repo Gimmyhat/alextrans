@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { COMPANY_PHONE_NUMBER, COMPANY_PHONE_FORMATTED, COMPANY_EMAIL, COMPANY_ADDRESS } from '../config/contactInfo';
 
 const Footer = () => {
   return (
@@ -16,17 +17,17 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Контакты</h4>
             <div className="space-y-2">
-              <a href="tel:+73952000000" className="flex items-center text-gray-400 hover:text-white">
+              <a href={`tel:${COMPANY_PHONE_NUMBER}`} className="flex items-center text-gray-400 hover:text-white">
                 <Phone className="w-5 h-5 mr-2" />
-                +7 (3952) 00-00-00
+                {COMPANY_PHONE_FORMATTED}
               </a>
-              <a href="mailto:info@alextrans.ru" className="flex items-center text-gray-400 hover:text-white">
+              <a href={`mailto:${COMPANY_EMAIL}`} className="flex items-center text-gray-400 hover:text-white">
                 <Mail className="w-5 h-5 mr-2" />
-                info@alextrans.ru
+                {COMPANY_EMAIL}
               </a>
               <div className="flex items-start text-gray-400">
                 <MapPin className="w-5 h-5 mr-2 mt-1 flex-shrink-0" />
-                <span>г. Иркутск, ул. Примерная, 123</span>
+                <span>{COMPANY_ADDRESS}</span>
               </div>
             </div>
           </div>
