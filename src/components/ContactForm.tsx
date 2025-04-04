@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { sendContactMessage } from '../utils/telegramService';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -7,15 +8,31 @@ const ContactForm = () => {
     email: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
-    // Здесь будет отправка данных на сервер
-    alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
-    // Сброс формы после отправки
-    setFormData({ name: '', phone: '', email: '', message: '' });
+    setIsSubmitting(true);
+    setSubmitError('');
+    setSubmitSuccess(false);
+    
+    try {
+      const success = await sendContactMessage(formData);
+      
+      if (success) {
+        setSubmitSuccess(true);
+        setFormData({ name: '', phone: '', email: '', message: '' });
+      } else {
+        setSubmitError('Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте снова позже.');
+      }
+    } catch (error) {
+      console.error('Error in contact form submission:', error);
+      setSubmitError('Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте снова позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,6 +58,21 @@ const ContactForm = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-white">
           <h2 className="text-3xl font-bold text-center mb-12">Связаться с нами</h2>
+
+          {submitSuccess && (
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 relative">
+              <strong className="font-bold">Спасибо!</strong>
+              <span className="block sm:inline"> Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.</span>
+            </div>
+          )}
+
+          {submitError && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 relative">
+              <strong className="font-bold">Ошибка!</strong>
+              <span className="block sm:inline"> {submitError}</span>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
@@ -55,6 +87,7 @@ const ContactForm = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
@@ -69,6 +102,7 @@ const ContactForm = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -84,6 +118,7 @@ const ContactForm = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                 required
+                disabled={isSubmitting}
               />
             </div>
             <div>
@@ -98,14 +133,16 @@ const ContactForm = () => {
                 rows={4}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"
                 required
+                disabled={isSubmitting}
               ></textarea>
             </div>
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-white text-blue-800 px-8 py-3 rounded-md hover:bg-blue-50 transition"
+                className={`bg-white text-blue-800 px-8 py-3 rounded-md hover:bg-blue-50 transition ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                disabled={isSubmitting}
               >
-                Отправить сообщение
+                {isSubmitting ? 'Отправка...' : 'Отправить сообщение'}
               </button>
             </div>
           </form>

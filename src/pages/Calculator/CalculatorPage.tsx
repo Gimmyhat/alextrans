@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { sendCalculatorRequest } from '../../utils/telegramService';
 
 const CalculatorPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,9 @@ const CalculatorPage: React.FC = () => {
     email: '',
     service: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -19,13 +24,28 @@ const CalculatorPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: Implement form submission logic (e.g., send data to backend or email)
-    console.log('Form Data Submitted:', formData);
-    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-    // Optionally reset form
-    // setFormData({ from: '', to: '', company: '', name: '', phone: '', email: '', service: '' });
+    setIsSubmitting(true);
+    setSubmitError('');
+    setSubmitSuccess(false);
+    
+    try {
+      const success = await sendCalculatorRequest(formData);
+      
+      if (success) {
+        setSubmitSuccess(true);
+        // Опционально сбрасываем форму после успешной отправки
+        // setFormData({ from: '', to: '', company: '', name: '', phone: '', email: '', service: '' });
+      } else {
+        setSubmitError('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте снова позже.');
+      }
+    } catch (error) {
+      console.error('Error in calculator form submission:', error);
+      setSubmitError('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте снова позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const services = [
@@ -44,6 +64,20 @@ const CalculatorPage: React.FC = () => {
         <div className="bg-white p-8 md:p-12 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-center mb-8">Рассчитать стоимость</h1>
           
+          {submitSuccess && (
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 relative">
+              <strong className="font-bold">Спасибо!</strong>
+              <span className="block sm:inline"> Заявка отправлена! Наш менеджер свяжется с вами в ближайшее время для уточнения деталей.</span>
+            </div>
+          )}
+
+          {submitError && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 relative">
+              <strong className="font-bold">Ошибка!</strong>
+              <span className="block sm:inline"> {submitError}</span>
+            </div>
+          )}
+          
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Откуда */}
             <div>
@@ -57,6 +91,7 @@ const CalculatorPage: React.FC = () => {
                 placeholder="Пункт отправления"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -72,6 +107,7 @@ const CalculatorPage: React.FC = () => {
                 placeholder="Пункт назначения"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -87,6 +123,7 @@ const CalculatorPage: React.FC = () => {
                 placeholder="Компания или ИП"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -102,6 +139,7 @@ const CalculatorPage: React.FC = () => {
                 placeholder="Ваше имя"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -117,6 +155,7 @@ const CalculatorPage: React.FC = () => {
                 placeholder="Ваш телефон"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -132,6 +171,7 @@ const CalculatorPage: React.FC = () => {
                 placeholder="Ваш E-mail"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -145,6 +185,7 @@ const CalculatorPage: React.FC = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white"
+                disabled={isSubmitting}
               >
                 <option value="" disabled>Выберите тип услуги</option>
                 {services.map((serviceName) => (
@@ -158,18 +199,19 @@ const CalculatorPage: React.FC = () => {
             {/* Согласие */}
             <div className="text-xs text-gray-500 text-center">
               Отправляя заявку, Вы даете согласие с установленными 
-              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline mx-1">
+              <Link to="/privacy-policy" className="text-blue-600 hover:underline mx-1">
                 политикой конфиденциальности
-              </a> 
+              </Link> 
               и условиями использования сайта.
             </div>
 
             {/* Кнопка отправки */}
             <button 
               type="submit"
-              className="w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition text-lg font-semibold"
+              className={`w-full bg-red-600 text-white py-3 px-6 rounded-md hover:bg-red-700 transition text-lg font-semibold ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+              disabled={isSubmitting}
             >
-              Отправить заявку
+              {isSubmitting ? 'Отправка заявки...' : 'Отправить заявку'}
             </button>
           </form>
         </div>

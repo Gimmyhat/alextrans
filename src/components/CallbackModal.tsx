@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Phone } from 'lucide-react';
 import { COMPANY_PHONE_FORMATTED } from '../config/contactInfo'; // Импортируем для возможного использования
+import { sendCallbackRequest } from '../utils/telegramService';
 
 interface CallbackModalProps {
   isOpen: boolean;
@@ -9,14 +10,30 @@ interface CallbackModalProps {
 
 const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // !!! Здесь будет логика отправки номера телефона на бэкенд !!!
-    console.log('Запрошен обратный звонок на номер:', phoneNumber);
-    alert('Спасибо! Мы скоро свяжемся с вами.');
-    setPhoneNumber(''); // Очищаем поле
-    onClose(); // Закрываем модальное окно
+    setIsSubmitting(true);
+    setSubmitError('');
+    
+    try {
+      const success = await sendCallbackRequest({ phone: phoneNumber });
+      
+      if (success) {
+        alert('Спасибо! Мы скоро свяжемся с вами.');
+        setPhoneNumber(''); // Очищаем поле
+        onClose(); // Закрываем модальное окно
+      } else {
+        setSubmitError('Произошла ошибка при отправке запроса. Пожалуйста, попробуйте снова позже.');
+      }
+    } catch (error) {
+      console.error('Error in callback form submission:', error);
+      setSubmitError('Произошла ошибка при отправке запроса. Пожалуйста, попробуйте снова позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Закрытие по нажатию Escape
@@ -59,6 +76,12 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
           <p className="text-gray-600 mt-2">Оставьте ваш номер телефона, и мы перезвоним вам в ближайшее время.</p>
         </div>
 
+        {submitError && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
+            {submitError}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="callback-phone" className="block text-sm font-medium text-gray-700 mb-1">
@@ -73,13 +96,15 @@ const CallbackModal: React.FC<CallbackModalProps> = ({ isOpen, onClose }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               placeholder="+7 (___) ___-__-__"
               required
+              disabled={isSubmitting}
             />
           </div>
           <button 
             type="submit"
-            className="w-full bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition font-medium"
+            className={`w-full bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition font-medium ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+            disabled={isSubmitting}
           >
-            Перезвоните мне
+            {isSubmitting ? 'Отправка...' : 'Перезвоните мне'}
           </button>
         </form>
       </div>
