@@ -7,6 +7,11 @@ if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
   console.error('Ошибка: Не указаны обязательные переменные окружения для Telegram API');
 }
 
+// Логирование переменных окружения (без полного токена для безопасности)
+console.log('Telegram API конфигурация:');
+console.log('BOT_TOKEN: ' + (TELEGRAM_BOT_TOKEN ? TELEGRAM_BOT_TOKEN.substring(0, 10) + '...' : 'не задан'));
+console.log('CHAT_ID: ' + TELEGRAM_CHAT_ID);
+
 // Интерфейсы для типов данных форм
 export interface ICallbackFormData {
   phone: string;
@@ -47,6 +52,8 @@ const formatContactMessage = (data: IContactFormData): string => {
 // Базовая функция для отправки сообщения через Telegram API
 const sendTelegramMessage = async (text: string): Promise<boolean> => {
   try {
+    console.log('Подготовка к отправке сообщения в Telegram...');
+    
     // Параметры для API запроса
     const params = {
       chat_id: TELEGRAM_CHAT_ID,
@@ -54,21 +61,43 @@ const sendTelegramMessage = async (text: string): Promise<boolean> => {
       parse_mode: 'Markdown'
     };
     
-    // Формируем URL с параметрами
-    const url = new URL(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`);
-    Object.keys(params).forEach(key => 
-      url.searchParams.append(key, params[key as keyof typeof params])
-    );
+    console.log('Параметры запроса:', JSON.stringify({
+      chat_id: params.chat_id,
+      parse_mode: params.parse_mode,
+      text_length: params.text.length
+    }));
+    
+    // Вместо формирования URL с параметрами используем fetch с JSON
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    console.log('URL запроса:', url.replace(TELEGRAM_BOT_TOKEN, '[СКРЫТО]'));
     
     // Отправляем запрос
-    const response = await fetch(url.toString());
+    console.log('Отправка запроса...');
+    const response = await fetch(url, {
+      method: 'POST',
+      mode: 'cors', // пробуем разные режимы, если возникнут проблемы с CORS
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params)
+    });
+    
+    console.log('Получен ответ. Статус:', response.status);
+    
+    if (!response.ok) {
+      console.error('HTTP Error:', response.status, response.statusText);
+      return false;
+    }
+    
     const data = await response.json();
+    console.log('Ответ от API Telegram:', JSON.stringify(data));
     
     if (!data.ok) {
       console.error('Telegram API Error:', data.description);
       return false;
     }
     
+    console.log('Сообщение успешно отправлено!');
     return true;
   } catch (error) {
     console.error('Error sending Telegram message:', error);
