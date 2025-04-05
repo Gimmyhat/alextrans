@@ -146,4 +146,47 @@ cp -r dist/* /var/www/a-t-group.ru/html/
 cd /path/to/project
 git pull
 docker-compose up -d --build
-``` 
+```
+
+## Миграция на новый сервер
+
+Для переноса проекта на новый VPS выполните следующие шаги:
+
+### 1. Настройка нового сервера
+
+```bash
+# Установка Git
+apt update
+apt install -y git
+
+# Установка Docker и Docker Compose
+apt install -y docker.io docker-compose
+systemctl enable docker
+systemctl start docker
+```
+
+### 2. Клонирование и запуск проекта
+
+```bash
+# Клонирование репозитория
+git clone https://github.com/Gimmyhat/alextrans.git
+cd alextrans
+
+# Настройка окружения
+make env-setup
+# Отредактируйте файл .env с актуальными значениями
+vim .env
+
+# Запуск контейнеров
+make docker-compose-up
+```
+
+### 3. Настройка DNS и SSL
+
+1. В панели управления Cloudflare измените A-запись домена `a-t-group.ru` на IP-адрес нового сервера.
+2. Убедитесь, что для этой записи включен режим проксирования Cloudflare (оранжевое облачко).
+3. В настройках SSL/TLS выберите режим "Full" для обеспечения шифрования между Cloudflare и вашим сервером.
+
+### 4. Проверка
+
+После обновления DNS-записей (может занять до 24 часов) проверьте доступность сайта по адресу https://a-t-group.ru. 
