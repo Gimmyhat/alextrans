@@ -6,8 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
+      # Маппинг портов 80:80 для работы с Cloudflare (SSL терминируется в Cloudflare)
+      # При необходимости прямого SSL, раскомментируйте строку ниже и закомментируйте строку выше
       - "80:80"
+      # - "443:80"
     environment:
       - VITE_TELEGRAM_BOT_TOKEN=${VITE_TELEGRAM_BOT_TOKEN}
       - VITE_TELEGRAM_CHAT_ID=${VITE_TELEGRAM_CHAT_ID}
-    restart: unless-stopped 
+    restart: unless-stopped
+    # Опционально: можно добавить имя контейнера для удобства
+    # container_name: alextrans_app 
