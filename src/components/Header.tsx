@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logoSrc from '../assets/logo_alex_trans.svg';
+import logoSrc from '../assets/logo_alex_trans_min.svg';
 import { COMPANY_PHONE_NUMBER, COMPANY_PHONE_FORMATTED } from '../config/contactInfo';
 
 const Header = () => {
@@ -15,8 +15,9 @@ const Header = () => {
             <img 
               src={logoSrc}
               alt="Алекс Транс - Логотип"
-              className="h-20 w-auto mr-3"
+              className="h-16 w-auto mr-2"
             />
+            <span className="text-2xl font-bold text-gray-800">ALEX TRANS</span>
           </Link>
 
           {/* Desktop Navigation */}
