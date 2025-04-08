@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { sendContactMessage } from '../utils/telegramService';
+import { Send, Phone, Mail, MapPin } from 'lucide-react';
+import contactFormBg from '../assets/images/contact-form-bg.jpg';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -43,12 +45,11 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact-form" className="py-20 relative">
-      {/* Фоновое изображение поезда с контейнерами */}
+    <section id="contact-form" className="relative py-20">
       <div 
         className="absolute inset-0 w-full h-full"
         style={{
-          backgroundImage: 'linear-gradient(to right, rgba(8, 60, 106, 0.85), rgba(5, 43, 77, 0.95)), url("https://images.unsplash.com/photo-1527679124583-9203a88236ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80")',
+          backgroundImage: `linear-gradient(to right, rgba(8, 60, 106, 0.85), rgba(5, 43, 77, 0.95)), url(${contactFormBg})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',

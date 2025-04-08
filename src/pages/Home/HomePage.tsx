@@ -4,10 +4,21 @@ import Services from '../../components/Services';
 import Advantages from '../../components/Advantages';
 import Map from '../../components/Map';
 import ContactForm from '../../components/ContactForm';
+import homeBg from '../../assets/images/home-bg.jpg';
 
 const HomePage: React.FC = () => {
   return (
-    <div>
+    <div className="min-h-screen">
+      <div 
+        className="fixed inset-0 w-full h-full -z-10"
+        style={{
+          backgroundImage: `url(${homeBg})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          opacity: 0.1,
+        }}
+      />
       <Hero />
       <Services />
       <Advantages />
