@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logoSrc from '../assets/logo_alex_trans_min.svg';
+import logoSrc from '../assets/logo_alex_trans_min1.svg';
 import { COMPANY_PHONE_NUMBER, COMPANY_PHONE_FORMATTED } from '../config/contactInfo';
 
 const Header = () => {
@@ -12,12 +12,15 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center">
-            <img 
-              src={logoSrc}
-              alt="Алекс Транс - Логотип"
-              className="h-16 w-auto mr-2"
-            />
-            <span className="text-2xl font-bold text-gray-800">ALEX TRANS</span>
+            <div className="relative w-14 h-14 flex items-center justify-center">
+              <img 
+                src={logoSrc}
+                alt="Алекс Транс - Логотип"
+                className="h-14 w-auto"
+                style={{ filter: 'invert(13%) sepia(70%) saturate(3000%) hue-rotate(217deg) brightness(50%) contrast(101%)' }}
+              />
+            </div>
+            <span className="text-3xl font-bold text-blue-900 ml-3">ALEX TRANS</span>
           </Link>
 
           {/* Desktop Navigation */}

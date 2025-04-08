@@ -24,11 +24,18 @@
 2. Установить зависимости
    ```bash
    npm install
+   # или с помощью Makefile
+   make install
    ```
 
 3. Настроить переменные окружения
    ```bash
+   # Быстрая настройка окружения через Makefile
+   make env-setup
+   
+   # Или вручную
    cp .env.example .env
+   echo "window.env = {};" > public/env-config.js
    ```
    
    Отредактируйте файл `.env` и укажите:
@@ -37,19 +44,30 @@
    
    Подробная инструкция по настройке бота в `TELEGRAM_SETUP_GUIDE.md`
 
-4. Создать файл `public/env-config.js` для локальной разработки
-   ```bash
-   echo "window.env = {};" > public/env-config.js
-   ```
-
-5. Запустить в режиме разработки
+4. Запустить в режиме разработки
    ```bash
    npm run dev
+   # или с помощью Makefile
+   make dev
    ```
 
-6. Сборка для производственной среды
+5. Сборка для производственной среды
    ```bash
    npm run build
+   # или с помощью Makefile
+   make build
+   ```
+
+6. Тестирование отправки уведомлений
+   ```bash
+   # Через Makefile
+   make test-telegram  # Базовое тестирование Telegram
+   make test-forms     # Тестирование отправки форм
+   make test-all       # Запуск всех тестов
+   
+   # Или напрямую
+   node test-telegram.js
+   node test-forms.js
    ```
 
 ## Деплой
@@ -148,6 +166,32 @@ git pull
 docker-compose up -d --build
 ```
 
+### Использование Makefile (рекомендуется)
+
+Проект включает Makefile, который значительно упрощает все операции по развертыванию и обслуживанию:
+
+```bash
+# Полное развертывание на сервере (сборка + копирование файлов + обновление env-config.js)
+make deploy-manual
+
+# Обновление только переменных окружения
+make update-env-config
+
+# Запуск в Docker
+make docker-compose-up
+
+# Обновление из репозитория и перезапуск в Docker
+make docker-deploy
+
+# Быстрое развертывание только статических файлов
+make deploy-manual-fast
+```
+
+Для просмотра всех доступных команд:
+```bash
+make help
+```
+
 ## Миграция на новый сервер
 
 Для переноса проекта на новый VPS выполните следующие шаги:
@@ -163,6 +207,9 @@ apt install -y git
 apt install -y docker.io docker-compose
 systemctl enable docker
 systemctl start docker
+
+# Установка make (если отсутствует)
+apt install -y make
 ```
 
 ### 2. Клонирование и запуск проекта
@@ -179,6 +226,9 @@ vim .env
 
 # Запуск контейнеров
 make docker-compose-up
+
+# Или для полного развертывания без Docker
+make deploy-manual
 ```
 
 ### 3. Настройка DNS и SSL
@@ -187,6 +237,19 @@ make docker-compose-up
 2. Убедитесь, что для этой записи включен режим проксирования Cloudflare (оранжевое облачко).
 3. В настройках SSL/TLS выберите режим "Full" для обеспечения шифрования между Cloudflare и вашим сервером.
 
-### 4. Проверка
+### 4. Проверка и сопровождение
 
-После обновления DNS-записей (может занять до 24 часов) проверьте доступность сайта по адресу https://a-t-group.ru. 
+После обновления DNS-записей (может занять до 24 часов) проверьте доступность сайта по адресу https://a-t-group.ru.
+
+При необходимости обновления сайта используйте:
+
+```bash
+# Обновление кода и контейнеров
+make docker-deploy
+
+# Просмотр логов
+make docker-compose-logs
+
+# Тестирование работоспособности
+make test-all
+```
