@@ -1,6 +1,7 @@
 import React from 'react';
 import { Truck, ChevronRight, Clock, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import heroBg from '../assets/images/hero-bg.jpg';
 
 const Hero = () => {
   return (
@@ -9,7 +10,7 @@ const Hero = () => {
       <div 
         className="absolute inset-0 w-full h-full"
         style={{
-          backgroundImage: 'linear-gradient(to right, rgba(5, 43, 77, 0.75), rgba(8, 60, 106, 0.6)), url("https://images.unsplash.com/photo-1587293852726-70cdb56c2866?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80")',
+          backgroundImage: `linear-gradient(to right, rgba(5, 43, 77, 0.75), rgba(8, 60, 106, 0.6)), url(${heroBg})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
