@@ -6,13 +6,21 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      # Маппинг портов 80:80 для работы с Cloudflare (SSL терминируется в Cloudflare)
-      # При необходимости прямого SSL, раскомментируйте строку ниже и закомментируйте строку выше
-      - "80:80"
-      # - "443:80"
+      # Маппинг портов 8080:80 для работы через nginx reverse proxy
+      - "8080:80"
+      # - "443:443"
+    volumes:
+      - /etc/ssl/cloudflare/a-t-group.ru:/etc/ssl/cloudflare/a-t-group.ru:ro
     environment:
       - VITE_TELEGRAM_BOT_TOKEN=${VITE_TELEGRAM_BOT_TOKEN}
       - VITE_TELEGRAM_CHAT_ID=${VITE_TELEGRAM_CHAT_ID}
+      - VITE_STRAPI_API_URL=http://strapi:1337
     restart: unless-stopped
     # Опционально: можно добавить имя контейнера для удобства
-    # container_name: alextrans_app 
+    container_name: alextrans_app
+    networks:
+      - alextrans-network
+
+networks:
+  alextrans-network:
+    driver: bridge 

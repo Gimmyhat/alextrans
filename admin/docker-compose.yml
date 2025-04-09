@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  strapi:
+    image: strapi/strapi
+    container_name: alextrans-strapi
+    restart: unless-stopped
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=strapi
+      - DATABASE_USERNAME=strapi
+      - DATABASE_PASSWORD=strapi
+      - NODE_ENV=development
+    ports:
+      - '1337:1337'
+    volumes:
+      - ./app:/srv/app
+    depends_on:
+      - postgres
+    networks:
+      - internal-network
+      - alextrans-network
+
+  postgres:
+    image: postgres:14
+    container_name: alextrans-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=strapi
+      - POSTGRES_PASSWORD=strapi
+      - POSTGRES_DB=strapi
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - internal-network
+
+volumes:
+  postgres-data:
+
+networks:
+  internal-network:
+    driver: bridge
+  alextrans-network:
+    external: true
+    name: alextrans_alextrans-network 
