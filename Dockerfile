@@ -23,7 +23,7 @@ RUN touch .env && \
 RUN npm run build
 
 # Этап запуска
-FROM nginx:stable-alpine
+FROM fholzer/nginx-brotli
 
 # Копируем собранное приложение из предыдущего этапа
 COPY --from=builder /app/dist /usr/share/nginx/html
